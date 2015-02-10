@@ -3,23 +3,12 @@
 module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-simple-mocha');
-  grunt.loadNpmTasks('grunt-express-server');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   grunt.initConfig({
-    express: {
-        options: {
-          script: './http_server.js'
-        }
-      },
     jshint: {
       options:{
-        node: true,
-        globals: {
-          describe: true,
-          it: true,
-          before: true,
-          after: true
-        }
+        jshintrc: '.jshintrc'
       },
     src: ['Gruntfile.js',
           'test/**/*.js',
@@ -29,10 +18,19 @@ module.exports = function(grunt) {
       all: {
         src: ['test/**/*.js']
       }
-    }
+    },
+    watch: {
+    scripts: {
+      files: ['**/*.js'],
+      tasks: ['jshint', 'simplemocha:all'],
+    options: {
+      spawn: false,
+    },
+  },
+},
   });
 
-  grunt.registerTask('test', ['jshint', 'express', 'simplemocha:all']);
+  grunt.registerTask('test', ['jshint', 'simplemocha:all']);
   grunt.registerTask('default', ['test']);
 };
 

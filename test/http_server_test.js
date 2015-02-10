@@ -19,7 +19,6 @@ describe('http server', function() {
         expect(err).to.eql(null);
         expect(res).to.have.status(200);
         expect(res.text).to.match(dateFormat);
-        expect('foobar').to.match(/^foo/);
         done();
       });
   });
